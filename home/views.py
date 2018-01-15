@@ -9,9 +9,15 @@ courses_url = "http://www.athenea-project.org/courses-microservice/api/course/al
 
 # Create your views here.
 
+
 def index(request):
   payload = {'accept':'application/json'}
   data = requests.get('http://www.athenea-project.org/courses-microservice/api/course/all', params=payload)  
   
   print(data)
   return HttpResponse("Hello, world. You're at the polls index.")
+
+
+#def index(request):
+#    return render(request, 'home.html',)
+
