@@ -23,6 +23,9 @@ class Course(models.Model):
     price = models.IntegerField()
     likes = models.IntegerField()
 
+class Organization_Course(models.Model):
+    
+
 #class Tags(models.Model):
 
 # "tags": [
