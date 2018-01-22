@@ -5,7 +5,7 @@
 
 <head>
   <meta charset="UTF-8">
-  <title>Sign in and Sign up - Single Form</title>
+  <title>Athenea</title>
 
 
   <link rel='stylesheet prefetch' href='{% static ' https://fonts.googleapis.com/css?family=Open+Sans:400,700,300,600 ' %}'>
@@ -21,7 +21,7 @@
 
     <div class="cont_centrar">
       <div class="cont_login">
-        <form action="checkLogin" method="post">
+        <form name="logform" id="logform" action="checkLogin" method="post">{% csrf_token %}
           <div class="cont_tabs_login">
             <ul class='ul_tabs'>
               <li class="active">
@@ -37,10 +37,24 @@
           <div class="cont_text_inputs">
             <input type="text" class="input_form_sign " placeholder="NAME" name="name_us" />
 
-            <input type="text" class="input_form_sign d_block active_inp" placeholder="EMAIL" name="emauil_us" />
+            <input type="text" class="input_form_sign d_block active_inp" placeholder="USERNAME" name="username_us" />
 
-            <input type="password" class="input_form_sign d_block  active_inp" placeholder="PASSWORD" name="pass_us" />
-            <input type="password" class="input_form_sign" placeholder="CONFIRM PASSWORD" name="conf_pass_us" />
+            <input type="text" class="input_form_sign " placeholder="EMAIL" name="emauil_us" />
+
+            <input type="text" class="input_form_sign " placeholder="PHONE NUMBER" name="phone_us" />
+
+            <input type="password" class="input_form_sign d_block active_inp" placeholder="PASSWORD" name="pass_us" />
+            <!--<input type="password" class="input_form_sign" placeholder="CONFIRM PASSWORD" name="conf_pass_us" />-->
+
+            
+
+            {% if errors %}
+            <ul>
+              {% for error in errors %}
+              <li>{{ error }}</li>
+              {% endfor %}
+            </ul>
+            {% endif %}
 
             <a href="#" class="link_forgot_pass d_block">Forgot Password ?</a>
             <div class="terms_and_cons d_none">
@@ -52,7 +66,7 @@
             </div>
           </div>
           <div class="cont_btn">
-            <button type="submit" class="btn_sign">LOG IN</button>
+            <button type="submit" class="btn_sign" >LOG IN</button>
 
           </div>
 

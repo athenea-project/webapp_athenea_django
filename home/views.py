@@ -13,6 +13,7 @@ organization_courses_url = "http://www.athenea-project.org/courses_organizations
 # Create your views here.
 
 
+
 def index(request):
     # Fetch courses and create a JSON
     req = Request(courses_url)
@@ -28,7 +29,7 @@ def index(request):
     dataDecoded = data.decode('utf8').replace("'", '"')
     print(dataDecoded)
 
-    return HttpResponse("Hello, world. You're at the polls index.")
+    return render(request, 'home.html')
 
 
 #def index(request):
