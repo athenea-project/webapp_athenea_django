@@ -33,9 +33,9 @@ def register(request):
             results = requests.post(register_url,  
               headers={'accept': 'application/json', 'content-type' : 'application/json'},
               data="{\"email\": \""+request.POST['emauil_us']+"\",  \"password\": \""+request.POST['pass_us']+"\",  \"name\": \""+request.POST['name_us']+"\",  \"username\": \""+request.POST['username_us']+"\",  \"phone_number\": "+request.POST['phone_us']+"}")
-            if results = "<Response [200]>":
+            if results == "<Response [200]>":
                 return HttpResponseRedirect('/home')
-            elif results = "<Response [403]>":
+            elif results == "<Response [403]>":
                 #TODO: download all the usernames of the database and check live
                 errors.append('That username was already taken')
                 return render(request, 'login.html', {'errors': errors})        
@@ -44,12 +44,12 @@ def register(request):
 def checkLogin(request):
     errors = []
     if request.method == 'POST':
-        if not request.POST['emauil_us']:
+        if not request.POST['username_us']:
             errors.append('Enter an username.')
         if not request.POST['pass_us']:
             errors.append('Enter a password')
         if not errors:
-            username = request.POST['emauil_us']
+            username = request.POST['username_us']
             password = request.POST['pass_us']
             req = Request(user_url)
             req.add_header('accept','application/json')
