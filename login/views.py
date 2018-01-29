@@ -34,13 +34,12 @@ def register(request):
             results = requests.post(REGISTER_URL,  
               headers={'accept': 'application/json', 'content-type' : 'application/json'},
               data="{\"email\": \""+request.POST['emauil_us']+"\",  \"password\": \""+request.POST['pass_us']+"\",  \"name\": \""+request.POST['name_us']+"\",  \"username\": \""+request.POST['username_us']+"\",  \"phone_number\": "+request.POST['phone_us']+"}")
+            print(results)
             if results == "<Response [200]>":
                 return render(request, 'home.html', {'user': user})
             elif results == "<Response [403]>":
                 #TODO: download all the usernames of the database and check live
-                headers = {'accept': 'application/json'}
-                r = requests.get(COURSES_URL, headers=headers)
-                courses = r.json()
+                #TODO: Check phone number
                 errors.append('That username was already taken')
                 return render(request, 'login.html', {'errors': errors})        
         return render(request, 'login.html', {'errors': errors})
