@@ -12,9 +12,12 @@ class User(models.Model):
     username = models.CharField(max_length = 20)
     phone_number = models.IntegerField()
 
+    def __str__(self):
+        return self.username
+
 
 class Course(models.Model):
-    id = models.CharField(max_length = 10)
+    course_id = models.CharField(max_length = 10)
     name = models.CharField(max_length = 20)
     description = models.TextField()
     latitude = models.IntegerField()
@@ -23,10 +26,8 @@ class Course(models.Model):
     price = models.IntegerField()
     likes = models.IntegerField()
 
-class Organization_Course(models.Model):
-    
+    def __str__(self):
+        return self.name
 
-#class Tags(models.Model):
+#class Organization_Course(models.Model):
 
-# "tags": [
-#  "string"
