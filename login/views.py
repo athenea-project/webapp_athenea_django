@@ -73,7 +73,10 @@ def checkLogin(request):
                     password= user['password'], 
                     username= user['username']                
                 )
-                print(u)
+                request.session['user.name'] = u.name
+                request.session['user.username'] = u.username
+                request.session['user.email'] = u.email
+                request.session['user.phone'] = u.phone_number
                 return redirect('/home', {'user': u})
         return render(request, 'login.html', {'errors': errors})
     return HttpResponse('/login')
