@@ -4,7 +4,7 @@ document.querySelectorAll('.ul_tabs > li')[0].className="";
 document.querySelectorAll('.ul_tabs > li')[1].className="active";
 document.logform.action = "register"  
   for(var i = 0; i < inputs.length ; i++  ) {
-if(i == 2  ){
+if(i == 4  ){
 
 }else{  
 document.querySelectorAll('.input_form_sign')[i].className = "input_form_sign d_block";
@@ -40,13 +40,14 @@ function sign_in(){
   var inputs = document.querySelectorAll('.input_form_sign');
 document.querySelectorAll('.ul_tabs > li')[0].className = "active"; 
 document.querySelectorAll('.ul_tabs > li')[1].className = ""; 
-  
+document.logform.action = "checkLogin"  
+
   for(var i = 0; i < inputs.length ; i++  ) {
 switch(i) {
     case 1:
  console.log(inputs[i].name);
         break;
-    case 2:
+    case 4:
  console.log(inputs[i].name);
     default: 
 document.querySelectorAll('.input_form_sign')[i].className = "input_form_sign d_block";
@@ -60,12 +61,12 @@ switch(d) {
     case 1:
  console.log(inputs[d].name);
         break;
-    case 2:
+    case 4:
  console.log(inputs[d].name);
 
     default:
  document.querySelectorAll('.input_form_sign')[d].className = "input_form_sign d_block";  
- document.querySelectorAll('.input_form_sign')[2].className = "input_form_sign d_block active_inp";  
+ document.querySelectorAll('.input_form_sign')[4].className = "input_form_sign d_block active_inp";  
 
    }
   }
@@ -92,7 +93,7 @@ switch(d) {
     case 1:
  console.log(inputs[d].name);
         break;
-    case 2:
+    case 4:
  console.log(inputs[d].name);
 
          break;
