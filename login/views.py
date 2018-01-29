@@ -33,10 +33,12 @@ def register(request):
             results = requests.post(register_url,  
               headers={'accept': 'application/json', 'content-type' : 'application/json'},
               data="{\"email\": \""+request.POST['emauil_us']+"\",  \"password\": \""+request.POST['pass_us']+"\",  \"name\": \""+request.POST['name_us']+"\",  \"username\": \""+request.POST['username_us']+"\",  \"phone_number\": "+request.POST['phone_us']+"}")
+            print(results)
             if results == "<Response [200]>":
                 return HttpResponseRedirect('/home')
             elif results == "<Response [403]>":
                 #TODO: download all the usernames of the database and check live
+                #TODO: Check phone number
                 errors.append('That username was already taken')
                 return render(request, 'login.html', {'errors': errors})        
         return render(request, 'login.html', {'errors': errors})
