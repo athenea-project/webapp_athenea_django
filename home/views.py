@@ -87,6 +87,26 @@ def search(request):
     return render(request, 'search.html', context)
 
 
-#def index(request):
-#    return render(request, 'home.html',)
+def map(request):
+    #TODO: cursos en base de datos y tirar de ella
+    #TODO: geoJSON con los cursos
+    headers = {'accept': 'application/json'}
+    r = requests.get(COURSES_URL, headers=headers)
+    courses = r.json()
+    for c in courses:
+        if not Course.objects.filter(course_id=c['id']):
+            course = Course(course_id = c['id'],
+                        name = c['name'],
+                        description = c['description'],
+                        latitude = c['latitude'],
+                        longitude = c['longitude'],
+                        profesorEmail =c['profesorEmail'],
+                        price = c['price'],
+                        likes = c['likes'])
+            course.save()
+    course_list = Course.objects.all()
+    context = {
+        'courses': course_list
+    }
 
+    return render(request, "map.html", context)

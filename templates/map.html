@@ -1,0 +1,58 @@
+{% extends "base.html" %} {% block top %} {{ block.super}} {% endblock %} {%block content%}
+
+    <div id='map'></div>
+
+    <script>
+        mapboxgl.accessToken =
+            'pk.eyJ1IjoicnViZW5zYW5jb3IiLCJhIjoiY2pkMHVxMHV2MDJuazJ4b3F3bWRhdjh4aCJ9._Wv7z8C64cCw3ysU9Zz2og';
+
+        var map = new mapboxgl.Map({
+            container: 'map',
+            style: 'mapbox://styles/mapbox/light-v9',
+            center: [-2.9685838, 43.2633182],
+            zoom: 10
+        });
+        
+
+        var geojson = {
+            type: 'FeatureCollection',
+            features: [  {
+                    type: 'Feature',
+                    geometry: {
+                        type: 'Point',
+                        coordinates: [-2.9685838, 43.2633182]
+                    },
+                    properties: {
+                        title: 'Mapbox',
+                        description: 'Washington, D.C.'
+                    }
+                },
+                {
+                    type: 'Feature',
+                    geometry: {
+                        type: 'Point',
+                        coordinates: [-122.414, 37.776]
+                    },
+                    properties: {
+                        title: 'Mapbox',
+                        description: 'San Francisco, California'
+                    }
+                }
+            ]
+        };
+
+        // add markers to map
+        geojson.features.forEach(function (marker) {
+
+            // create a HTML element for each feature
+            var el = document.createElement('div');
+            el.className = 'marker';
+
+            // make a marker for each feature and add to the map
+            new mapboxgl.Marker(el)
+                .setLngLat(marker.geometry.coordinates)
+                .addTo(map);
+        });
+    </script>
+
+{% endblock %} {% block bot %} {{ block.super }} {% endblock %}
