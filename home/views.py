@@ -99,25 +99,22 @@ def index_page(request, page):
     dataDecoded = data.decode('utf8').replace("'", '"')
 
 def map(request):
-    #TODO: cursos en base de datos y tirar de ella
     #TODO: geoJSON con los cursos
-    headers = {'accept': 'application/json'}
-    r = requests.get(COURSES_URL, headers=headers)
-    courses = r.json()
-    for c in courses:
-        if not Course.objects.filter(course_id=c['id']):
-            course = Course(course_id = c['id'],
-                        name = c['name'],
-                        description = c['description'],
-                        latitude = c['latitude'],
-                        longitude = c['longitude'],
-                        profesorEmail =c['profesorEmail'],
-                        price = c['price'],
-                        likes = c['likes'])
-            course.save()
+    page_number = request.session['page_number']
+    if Course.objects.count() < (page_number*COURSES_PER_PAGE):
+        print("Downloading courses")
+        download_courses()
     course_list = Course.objects.all()
+    print(course_list)
+    points = []
+
+    for c in course_list:
+        points.append('{"type": "Feature","geometry": {"type": "Point","coordinates": ['+ str(c.latitude) + ',' + str(c.longitude) + ']},"properties": {"title":"' + c.name + '","description":"' +  c.profesorEmail + '"}}')
+    points = str(points)
+    points = points.replace("'", "")
     context = {
-        'courses': course_list
+        'courses': course_list,
+        'points': points
     }
 
     return render(request, "map.html", context)
