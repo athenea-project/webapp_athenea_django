@@ -144,8 +144,6 @@ def download_courses():
                         price = c['price'],
                         likes = c['likes'])
             course.save()
-<<<<<<< HEAD
-=======
 
 def submit_comment(request):
     if request.method == 'POST':
@@ -155,4 +153,3 @@ def submit_comment(request):
     return redirect(url)
 
 
->>>>>>> 0d4ad75f2989625ec781b562d9f8939a2bb44539
