@@ -11,6 +11,10 @@
   background-image: linear-gradient(-87deg, #f2f5f6 0%, #dde5e8 100%);
 }
 
+footer#dhts {
+	position: relative;
+}
+
 .cont_centrar {
   position: absolute;
   width: 320px;

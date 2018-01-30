@@ -21,4 +21,29 @@
         </div>
       </div>
     </div>
-    {% endfor %}{% endblock %} {% block bot %} {{ block.super }} {% endblock %}
+    {% endfor %}
+  </div>
+</div>
+{% endblock %} {% block bot %}
+<div style="width: 100%;">
+  <footer aria-label="Page navigation example">
+    <ul class="pagination justify-content-center">
+      {% if page_number == 1%}
+      <li class="page-item disabled">
+      {% else %}
+      <li class="page-item">
+      {% endif %}
+        <a class="page-link" href="/home/{{ page_prev }}">
+          <</a>
+      </li>
+      {% if courses_size <= max_allowed %}
+      <li class="page-item disabled">
+      {% else %}
+      <li class="page-item">
+      {% endif %}
+        <a class="page-link" href="/home/{{ page_next }}">></a>
+      </li>
+    </ul>
+  </footer>
+</div>
+{{ block.super }} {% endblock %}

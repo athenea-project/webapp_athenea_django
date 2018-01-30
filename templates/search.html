@@ -1,24 +1,26 @@
 {% extends "base.html" %} {% block top %} {{ block.super}} {% endblock %} {%block content%}
-  <div class="container">
-    <div class="row" style="margin-top: 10px !important; padding: 30px !important;">
-      {% for course in course_search %}
-      <div class="col-sm-6" style="margin-top: 10px">
-        <div class="card">
-          <div class="card-body">
-            <div class="row">
-              <div class="col">
-                <h5 class="card-title">{{ course.name }}</h5>
-              </div>
-              <div class="col-sm-6">
-                <p class="card-text">{{ course.profesorEmail }}</p>
-              </div>
-              <!-- <div class="col-sm-2">
+<div class="container">
+  <div class="row" style="margin-top: 10px !important; padding: 30px !important;">
+    {% for course in course_search %}
+    <div class="col-sm-6" style="margin-top: 10px">
+      <div class="card">
+        <div class="card-body">
+          <div class="row">
+            <div class="col">
+              <h5 class="card-title">{{ course.name }}</h5>
+            </div>
+            <div class="col-sm-6">
+              <p class="card-text">{{ course.profesorEmail }}</p>
+            </div>
+            <!-- <div class="col-sm-2">
                 <img src="https://freeiconshop.com/wp-content/uploads/edd/person-flat.png" class="rounded-circle" style="width: 30px !important;">
               </div> -->
-            </div>
-            <p class="card-text"> {{ course.description }}</p>
-            <a href="/course/{{ course.course_id }}" class="btn btn-primary">See course</a>
           </div>
+          <p class="card-text"> {{ course.description }}</p>
+          <a href="/course/{{ course.course_id }}" class="btn btn-primary">See course</a>
         </div>
       </div>
-      {% endfor %}{% endblock %} {% block bot %} {{ block.super }} {% endblock %}
+    </div>
+    {% endfor %}
+  </div>
+</div>{% endblock %} {% block bot %} {{ block.super }} {% endblock %}
