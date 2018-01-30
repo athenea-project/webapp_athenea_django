@@ -5,7 +5,7 @@ from django.http import HttpResponse, HttpResponseRedirect
 from urllib.request import Request, urlopen
 from django.template import RequestContext
 import json, urllib.parse, requests
-from home.models import User
+from home.models import User, Course
 
 
 #TODO: Send the username and pass to the home view so it can use them
@@ -77,6 +77,8 @@ def checkLogin(request):
                 request.session['user.username'] = u.username
                 request.session['user.email'] = u.email
                 request.session['user.phone'] = u.phone_number
+                request.session['page_number'] = 1
+                Course.objects.all().delete()
                 return redirect('/home', {'user': u})
         return render(request, 'login.html', {'errors': errors})
     return HttpResponse('/login')
