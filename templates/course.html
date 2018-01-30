@@ -1,32 +1,63 @@
+ {% extends "base.html" %} {% block top %} {{ block.super}} {% endblock %} {%block content%} {% if course %}
 
-{% extends "base.html" %} {% block top %} {{ block.super}} {% endblock %} {%block content%}
+<div class="jumbotron">
+    <h1 class="display-3">{{ course.name }}</h1>
+    <p class="lead">{{ course.description }}</p>
+    <p class="lead">{{ course.profesorEmail }}</p>
+    <p>
+        <a class="btn btn-lg btn-primary" href="#" role="button">Sign up today</a>
+    </p>
+    <p>
+        <a class="btn btn-lg btn-war" href="/home" role="button">Back</a>
+    </p>
+</div>
+<div class="col-md-8">
+<div class="row marketing">
+    <div class="col-md-3 col-sm-1">
+        <h4>Price</h4>
+        <p>{{ course.price }} €/h</p>
 
-    {% if course %}
-
-    <div class="jumbotron">
-        <h1 class="display-3">{{ course.name }}</h1>
-        <p class="lead">{{ course.description }}</p>
-        <p class="lead">{{ course.profesorEmail }}</p>
-        <p>
-            <a class="btn btn-lg btn-primary" href="#" role="button">Sign up today</a>
-        </p>
-        <p>
-            <a class="btn btn-lg btn-war" href="/home" role="button">Back</a>
-        </p>
-    </div>
-    {% endif %}
-
-    <div class="row marketing">
-        <div class="col-lg-6" align="right">
-            <h4>Price</h4>
-            <p>{{ course.price }} €/h</p>
-
-        </div>
-
-        <div class="col-lg-6">
-            <h4>Likes</h4>
-            <p>{{ course.likes }}</p>
-        </div>
     </div>
 
-    {% endblock %} {% block bot %} {{ block.super }} {% endblock %}
+    <div class="col-md-3 col-sm-1">
+        <h4>Likes</h4>
+        <p>{{ course.likes }}</p>
+    </div>
+</div>
+</div>
+<div class="container">
+    <div class="row">
+        <div class="col-md-8">
+            <form name="logform" id="logform" action="submit/comment" method="post">{% csrf_token %}
+                <div>
+                    <input hidden="true" name="course_id" value={{course.course_id}}>
+                    <input hidden="true" name="user" value={{user}}>
+                    <textarea class="form-control" rows="5" id="comment" name="comment" placeholder="Insert your comment here"></textarea>
+                </div>
+                <div>
+                    <button type="submit" class="btn btn-primary" style="margin-top: 5px">Send comment</button>
+                </div>
+            </form>
+        </div>
+        <div class="col-md-8">
+            <div class="page-header">
+                <h1>
+                    {% if comment_count > 0 %}
+                    <small class="pull-right">{{ comment_count }} comments:</small>
+                    {% else %}
+                    <small class="pull-right">No comments.</small>
+                    {% endif %}
+                </h1>
+            </div>
+            <div class="comments-list">
+                {% for comment in comments %}
+                <div class="media">
+                    <div class="media-body">
+                        <h4 class="media-heading user_name">{{ comment.username }}</h4> {{ comment.comment }}
+                    </div>
+                </div>{% endfor %}
+            </div>
+        </div>
+    </div>
+</div>
+{% endif %} {% endblock %} {% block bot %} {{ block.super }} {% endblock %}

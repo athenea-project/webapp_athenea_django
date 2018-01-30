@@ -1,18 +1,20 @@
 # -*- coding: utf-8 -*-
 from __future__ import unicode_literals
 from django.http import HttpResponse
-from django.shortcuts import render, render_to_response
+from django.shortcuts import render, render_to_response, redirect
 from django.template import loader
 from urllib.request import Request, urlopen
 from io import StringIO
 import json, requests
 from home.models import User, Course
 import itertools
+from zeep import Client
 
 # Courses url
 COURSES_URL = "http://www.athenea-project.org/courses-microservice/api/course/all"
 COURSES_TAG = "http://www.athenea-project.org/courses-microservice/api/course/tag"
 ORGANIZATION_COURSES_URL = "http://www.athenea-project.org/courses_organizations-microservice/api/course_organizations/all"
+CLIENT = Client("http://localhost:8080/comments/CommentResourceServiceImplPort?wsdl")
 COURSES_PER_PAGE = 3
 
 # Create your views here.
@@ -46,9 +48,16 @@ def index(request):
 
 def course_detail(request, course_id):
     course = Course.objects.get(course_id=course_id)
+    comments = CLIENT.service.findCommentsForCourse("string")
+    print(type(comments))
+    comment_count=0
+    if comments is not None:
+        comment_count=len(comments)
     context = {
         'course':  course,
-        'user': request.session['user.name']
+        'user': request.session['user.name'],
+        'comments': comments,
+        'comment_count': comment_count
     }
     return render(request, "course.html", context )
 
@@ -116,3 +125,12 @@ def download_courses():
                         price = c['price'],
                         likes = c['likes'])
             course.save()
+
+def submit_comment(request):
+    if request.method == 'POST':
+        if request.POST['comment']:
+                comments = CLIENT.service.insert(request.POST['course_id'],request.POST['user'],request.POST['comment'])
+    url = "/course/"+request.POST['course_id']
+    return redirect(url)
+
+

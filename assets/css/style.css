@@ -178,3 +178,10 @@ footer#dhts {
 .cont_text_inputs > input:nth-child(4) {
   transition-delay: 0.8s;
 }
+.user_name{
+  font-size:14px;
+  font-weight: bold;
+}
+.comments-list .media{
+  border-bottom: 1px dotted #ccc;
+}
