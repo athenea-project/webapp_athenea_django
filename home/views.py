@@ -48,11 +48,11 @@ def index(request):
 
 def course_detail(request, course_id):
     course = Course.objects.get(course_id=course_id)
-    comments = CLIENT.service.findCommentsForCourse("string")
+     comments = CLIENT.service.findCommentsForCourse("string")
     print(type(comments))
     comment_count=0
     if comments is not None:
-        comment_count=len(comments)
+       comment_count=len(comments)
     context = {
         'course':  course,
         'user': request.session['user.name'],
