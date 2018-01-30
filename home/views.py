@@ -108,7 +108,6 @@ def index_page(request, page):
     dataDecoded = data.decode('utf8').replace("'", '"')
 
 def map(request):
-    #TODO: geoJSON con los cursos
     page_number = request.session['page_number']
     if Course.objects.count() < (page_number*COURSES_PER_PAGE):
         print("Downloading courses")
@@ -118,9 +117,11 @@ def map(request):
     points = []
 
     for c in course_list:
-        points.append('{"type": "Feature","geometry": {"type": "Point","coordinates": ['+ str(c.latitude) + ',' + str(c.longitude) + ']},"properties": {"title":"' + c.name + '","description":"' +  c.profesorEmail + '"}}')
+        points.append('{"type": "Feature","geometry": {"type": "Point","coordinates": ['+ str(c.latitude) + ',' + str(c.longitude) + ']},"properties": {"title":"' + c.name + '","description":"' +  c.profesorEmail + '"}, "id" : "'+ str(c.course_id) +'"}')
     points = str(points)
     points = points.replace("'", "")
+
+    print(points)
     context = {
         'courses': course_list,
         'points': points
