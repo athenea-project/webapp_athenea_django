@@ -12,12 +12,44 @@
 
   <link rel="stylesheet" href="{% static 'css/style.css' %}">
 
-
+  <style>
+      .alert {
+          padding: 20px;
+          background-color: #f44336;
+          color: white;
+      }
+      
+      .closebtn {
+          margin-left: 15px;
+          color: white;
+          font-weight: bold;
+          float: right;
+          font-size: 22px;
+          line-height: 20px;
+          cursor: pointer;
+          transition: 0.3s;
+      }
+      
+      .closebtn:hover {
+          color: black;
+      }
+      </style>
 </head>
 
 <body>
 
+
+
   <div class="cont_principal">
+
+    {% if errors %}
+      {% for error in errors %}
+      <div class="alert">
+        <span class="closebtn" onclick="this.parentElement.style.display='none';">&times;</span>
+        {{error}}
+      </div>
+      {% endfor %}
+    {% endif %}
 
     <div class="cont_centrar">
       <div class="cont_login">
@@ -45,27 +77,10 @@
 
             <input type="password" class="input_form_sign d_block active_inp" placeholder="PASSWORD" name="pass_us" />
 
-            
 
-            {% if errors %}
-            <ul>
-              {% for error in errors %}
-              <li>{{ error }}</li>
-              {% endfor %}
-            </ul>
-            {% endif %}
-
-            <a href="#" class="link_forgot_pass d_block">Forgot Password ?</a>
-            <div class="terms_and_cons d_none">
-              <p>
-                <input type="checkbox" name="terms_and_cons" />
-                <label for="terms_and_cons">Accept Terms and Conditions.</label>
-              </p>
-
-            </div>
           </div>
           <div class="cont_btn">
-            <button type="submit" class="btn_sign" >LOG IN</button>
+            <button type="submit" class="btn_sign">LOG IN</button>
 
           </div>
 
@@ -80,6 +95,7 @@
 
 
   <script src="{% static 'js/index.js' %}"></script>
+
 
 
 

@@ -48,7 +48,7 @@ def index(request):
 
 def course_detail(request, course_id):
     course = Course.objects.get(course_id=course_id)
-     comments = CLIENT.service.findCommentsForCourse("string")
+    comments = CLIENT.service.findCommentsForCourse("string")
     print(type(comments))
     comment_count=0
     if comments is not None:
@@ -117,7 +117,7 @@ def map(request):
     points = []
 
     for c in course_list:
-        points.append('{"type": "Feature","geometry": {"type": "Point","coordinates": ['+ str(c.latitude) + ',' + str(c.longitude) + ']},"properties": {"title":"' + c.name + '","description":"' +  c.profesorEmail + '"}, "id" : "'+ str(c.course_id) +'"}')
+        points.append('{"type": "Feature","geometry": {"type": "Point","coordinates": ['+ str(c.longitude) + ',' + str(c.latitude) + ']},"properties": {"title":"' + c.name + '","description":"' +  c.profesorEmail + '"}, "id" : "'+ str(c.course_id) +'"}')
     points = str(points)
     points = points.replace("'", "")
 
