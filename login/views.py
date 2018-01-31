@@ -61,12 +61,10 @@ def checkLogin(request):
             # data = urlopen(req).read()
             headers = {'accept': 'application/json', 'username': username, 'password':password}
             r = requests.get(USER_URL, headers=headers)
-            user = r.json()
-            print(user)
-            if not user:
+            if str(r)  == "<Response [204]>":
                 errors.append('Enter a valid username/password')
-            else:    
-                print("Generarting new user")
+            else:
+                user = r.json()    
                 u = User(phone_number= user['phone_number'],
                     email= user['email'],
                     name= user['name'], 

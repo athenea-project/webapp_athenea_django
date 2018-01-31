@@ -1,0 +1,45 @@
+{% extends "base.html" %}{%block content%}
+
+<div id='map'></div>
+
+<script type="text/javascript">
+    var points = '{{points|safe}}';
+
+
+    mapboxgl.accessToken =
+        'pk.eyJ1IjoicnViZW5zYW5jb3IiLCJhIjoiY2pkMHVxMHV2MDJuazJ4b3F3bWRhdjh4aCJ9._Wv7z8C64cCw3ysU9Zz2og';
+
+    var map = new mapboxgl.Map({
+        container: 'map',
+        style: 'mapbox://styles/mapbox/light-v9',
+        center: [-2.9685838, 43.2633182],
+        zoom: 10
+    });
+    console.log(points);
+    var obj = JSON.parse(points);
+    console.log(obj);
+
+    var geojson = {
+        type: 'FeatureCollection',
+        features: obj
+    };
+
+    // add markers to map
+    geojson.features.forEach(function (marker) {
+
+        // create a HTML element for each feature
+        var el = document.createElement('div');
+        el.className = 'marker';
+
+        // make a marker for each feature and add to the map
+        new mapboxgl.Marker(el)
+            .setLngLat(marker.geometry.coordinates)
+            .setPopup(new mapboxgl.Popup({
+                offset: 25
+            }) // add popups
+            .setHTML('<h4><a href=/course/'+ marker.id +'>' + marker.properties.title + '</a></h4><p>' + marker.properties.description + '</p>'))
+            .addTo(map);
+    });
+
+</script>
+{% endblock %}{% block bot %} {{ block.super }} {% endblock %}

@@ -52,7 +52,7 @@ def course_detail(request, course_id):
     print(type(comments))
     comment_count=0
     if comments is not None:
-        comment_count=len(comments)
+       comment_count=len(comments)
     context = {
         'course':  course,
         'user': request.session['user.name'],
@@ -107,8 +107,28 @@ def index_page(request, page):
     data = urlopen(req).read()
     dataDecoded = data.decode('utf8').replace("'", '"')
 
-    return render(request, 'home.html', context)
+def map(request):
+    page_number = request.session['page_number']
+    if Course.objects.count() < (page_number*COURSES_PER_PAGE):
+        print("Downloading courses")
+        download_courses()
+    course_list = Course.objects.all()
+    print(course_list)
+    points = []
 
+    for c in course_list:
+        points.append('{"type": "Feature","geometry": {"type": "Point","coordinates": ['+ str(c.longitude) + ',' + str(c.latitude) + ']},"properties": {"title":"' + c.name + '","description":"' +  c.profesorEmail + '"}, "id" : "'+ str(c.course_id) +'"}')
+    points = str(points)
+    points = points.replace("'", "")
+
+    print(points)
+    context = {
+        'courses': course_list,
+        'points': points
+    }
+
+    return render(request, "map.html", context)
+    
 def download_courses():
     headers = {'accept': 'application/json'}
     r = requests.get(COURSES_URL, headers=headers)

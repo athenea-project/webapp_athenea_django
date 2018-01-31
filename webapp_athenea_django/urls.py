@@ -25,6 +25,7 @@ urlpatterns = [
     url(r'^admin/', admin.site.urls),
     path('course/<str:course_id>', home.views.course_detail),
     path('user/<str:username>', home.views.user_detail),
+    path('map', home.views.map),
     url('course/submit/comment', home.views.submit_comment),
     path('search', home.views.search)
 ]
