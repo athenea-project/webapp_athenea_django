@@ -1,5 +1,6 @@
  {% extends "base.html" %} {% block top %} {{ block.super}} {% endblock %} {%block content%} {% if course %}
 
+<div class="col-md-8 col-lg-8">
 <div class="jumbotron">
     <h1 class="display-3">{{ course.name }}</h1>
     <p class="lead">{{ course.description }}</p>
@@ -11,19 +12,18 @@
         <a class="btn btn-lg btn-war" href="/home" role="button">Back</a>
     </p>
 </div>
-<div class="col-md-8">
-<div class="row marketing">
-    <div class="col-md-3 col-sm-1">
-        <h4>Price</h4>
-        <p>{{ course.price }} €/h</p>
+    <div class="row marketing">
+        <div class="col-md-3 col-sm-1">
+            <h4>Price</h4>
+            <p>{{ course.price }} €/h</p>
 
-    </div>
+        </div>
 
-    <div class="col-md-3 col-sm-1">
-        <h4>Likes</h4>
-        <p>{{ course.likes }}</p>
+        <div class="col-md-3 col-sm-1">
+            <h4>Likes</h4>
+            <p>{{ course.likes }}</p>
+        </div>
     </div>
-</div>
 </div>
 <div class="container">
     <div class="row">
