@@ -14,8 +14,8 @@ from zeep import Client
 COURSES_URL = "http://www.athenea-project.org/courses-microservice/api/course/all"
 COURSES_TAG = "http://www.athenea-project.org/courses-microservice/api/course/tag"
 ORGANIZATION_COURSES_URL = "http://www.athenea-project.org/courses_organizations-microservice/api/course_organizations/all"
-CLIENT = Client("http://localhost:8080/comments/CommentResourceServiceImplPort?wsdl")
-COURSES_PER_PAGE = 3
+CLIENT = Client("http://www.athenea-project.org/comments-microservice/CommentResourceServiceImplPort?wsdl")
+COURSES_PER_PAGE = 3 
 
 # Create your views here.
 
@@ -106,6 +106,7 @@ def index_page(request, page):
     req.add_header('accept','application/json')
     data = urlopen(req).read()
     dataDecoded = data.decode('utf8').replace("'", '"')
+    return render(request, 'home.html', context)
 
 def map(request):
     page_number = request.session['page_number']
